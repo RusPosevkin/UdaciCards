@@ -50,7 +50,7 @@ class NewDeckView extends Component {
           }
           onPress={this.submit}
         >
-          <Text style={styles.submitBtnText}>Submit</Text>
+          <Text style={styles.submitBtnText}>Create Deck</Text>
         </TouchableOpacity>
       </View>
     );

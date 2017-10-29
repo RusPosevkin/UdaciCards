@@ -6,8 +6,9 @@ import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import reducer from './reducers';
 import configureStore from './configureStore';
-import { TabNavigator } from 'react-navigation';
+import { TabNavigator, StackNavigator } from 'react-navigation';
 import { Ionicons } from '@expo/vector-icons';
+import IndividualDeckView from './components/IndividualDeckView';
 
 const store = configureStore();
 const platformPrefix = Platform.OS === 'ios' ? 'ios' : 'md';
@@ -37,12 +38,27 @@ const Tabs = TabNavigator({
   },
 });
 
+const MainNavigator = StackNavigator({
+  Home: {
+    screen: Tabs,
+  },
+  IndividualDeckView: {
+    screen: IndividualDeckView,
+    navigationOptions: {
+      headerTintColor: 'white',
+      headerStyle: {
+        backgroundColor: 'purple',
+      },
+    },
+  },
+});
+
 export default class App extends React.Component {
   render() {
     return (
       <Provider store={store}>
         <View style={[styles.debug, { flex: 1 }]}>
-          <Tabs />
+          <MainNavigator />
         </View>
       </Provider>
     );

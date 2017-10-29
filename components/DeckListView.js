@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet, TouchableHighlight } from 'react-native';
 import { getDecks } from '../actions';
 import { fetchDecks } from '../utils/api';
 import { AppLoading } from 'expo';
@@ -46,12 +46,22 @@ class DeckListView extends Component {
         <Text>{stateStringify}</Text>
         <Text>{propsStringify}</Text>
         {decks.map((item) => (
-          <View key={item} style={styles.deck}>
-            <Text style={styles.header}>{item}</Text>
-            <Text style={styles.counter}>
-              {state[item].questions.length} cards
-            </Text>
-          </View>
+          <TouchableHighlight
+            key={item}
+            style={styles.deck}
+            onPress={() => this.props.navigation.navigate(
+              'IndividualDeckView',
+              { deck: item }
+              )
+            }
+          >
+            <View>
+              <Text style={styles.header}>{item}</Text>
+              <Text style={styles.counter}>
+                {state[item].questions.length} cards
+              </Text>
+            </View>
+          </TouchableHighlight>
         ))}
       </View>
     );

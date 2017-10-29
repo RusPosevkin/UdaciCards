@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, TextInput, TouchableOpacity } from 'react-native';
 
-export default class DeckListView extends Component {
+export default class NewDeckView extends Component {
   onSubmit() {
 
   };

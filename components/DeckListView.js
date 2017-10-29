@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
 import { getDecks } from '../actions';
 import { fetchDecks } from '../utils/api';
 import { AppLoading } from 'expo';
@@ -32,7 +32,7 @@ class DeckListView extends Component {
 
     if (decks.length === 0) {
       return (
-        <View>
+        <View style={styles.center}>
           <Text>There is no any deck</Text>
         </View>
       );
@@ -41,14 +41,57 @@ class DeckListView extends Component {
     const stateStringify = JSON.stringify(this.state);
     const propsStringify = JSON.stringify(this.props);
     return (
-      <View>
+      <View style={styles.container}>
         <Text>DeckListView</Text>
         <Text>{stateStringify}</Text>
         <Text>{propsStringify}</Text>
+        {decks.map((item) => (
+          <View key={item} style={styles.deck}>
+            <Text style={styles.header}>{item}</Text>
+            <Text style={styles.counter}>
+              {state[item].questions.length} cards
+            </Text>
+          </View>
+        ))}
       </View>
     );
   }
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+    backgroundColor: 'white',
+  },
+  row: {
+    flexDirection: 'row',
+    flex: 1,
+    alignItems: 'center',
+  },
+  deck: {
+    marginBottom: 5,
+    borderWidth: 2,
+    borderColor: 'grey',
+    padding: 20,
+  },
+  header: {
+    fontSize: 30,
+    textAlign: 'center',
+  },
+  counter: {
+    fontSize: 20,
+    color: 'grey',
+    textAlign: 'center',
+  },
+  center: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginLeft: 30,
+    marginRight: 30,
+  },
+});
 
 function mapStateToProps(state) {
   const decks = Object.keys(state) || [];

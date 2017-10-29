@@ -28,20 +28,31 @@ class DeckListView extends Component {
       return (<AppLoading />);
     }
 
-    const state = JSON.stringify(this.state);
-    const props = JSON.stringify(this.props);
+    const { decks, state } = this.props;
+
+    if (decks.length === 0) {
+      return (
+        <View>
+          <Text>There is no any deck</Text>
+        </View>
+      );
+    }
+
+    const stateStringify = JSON.stringify(this.state);
+    const propsStringify = JSON.stringify(this.props);
     return (
       <View>
         <Text>DeckListView</Text>
-        <Text>{state}</Text>
-        <Text>{props}</Text>
+        <Text>{stateStringify}</Text>
+        <Text>{propsStringify}</Text>
       </View>
     );
   }
 };
 
 function mapStateToProps(state) {
-  return state;
+  const decks = Object.keys(state) || [];
+  return { decks, state };
 };
 
 export default connect(

@@ -9,6 +9,7 @@ import configureStore from './configureStore';
 import { TabNavigator, StackNavigator } from 'react-navigation';
 import { Ionicons } from '@expo/vector-icons';
 import IndividualDeckView from './components/IndividualDeckView';
+import NewQuestionView from './components/NewQuestionView';
 
 const store = configureStore();
 const platformPrefix = Platform.OS === 'ios' ? 'ios' : 'md';
@@ -38,12 +39,29 @@ const Tabs = TabNavigator({
   },
 });
 
+const IndividualDeckNavigator = StackNavigator({
+  IndividualDeckView: {
+    screen: IndividualDeckView,
+  },
+  NewQuestionView: {
+    screen: NewQuestionView,
+    navigationOptions: {
+      headerTintColor: 'white',
+      headerStyle: {
+        backgroundColor: 'purple',
+      },
+    },
+  },
+}, {
+  headerMode: 'none',
+});
+
 const MainNavigator = StackNavigator({
   Home: {
     screen: Tabs,
   },
-  IndividualDeckView: {
-    screen: IndividualDeckView,
+  IndividualDeckNavigator: {
+    screen: IndividualDeckNavigator,
     navigationOptions: {
       headerTintColor: 'white',
       headerStyle: {

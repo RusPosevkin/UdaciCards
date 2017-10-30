@@ -4,6 +4,7 @@ import { getDecks } from '../actions';
 import { fetchDecks } from '../utils/api';
 import { AppLoading } from 'expo';
 import { connect } from 'react-redux';
+import { NavigationActions } from 'react-navigation';
 
 class DeckListView extends Component {
   state = {
@@ -12,13 +13,24 @@ class DeckListView extends Component {
 
   componentDidMount() {
     const { dispatch } = this.props;
-    getDecks();
     fetchDecks()
       .then((entries) => dispatch(getDecks(entries)))
       .then(({ entries }) => {
         console.log('fetchDecks', entries);
       })
       .then(() => this.setState(() => ({ ready: true })));
+  };
+
+  locateToDeck = (deck) => {
+    const navigateAction = NavigationActions.navigate({
+      routeName: 'IndividualDeckNavigator',
+
+      action: NavigationActions.navigate({
+        routeName: 'IndividualDeckView',
+        params: { deck },
+      }),
+    });
+    this.props.navigation.dispatch(navigateAction);
   };
 
   render() {
@@ -49,11 +61,7 @@ class DeckListView extends Component {
           <TouchableHighlight
             key={item}
             style={styles.deck}
-            onPress={() => this.props.navigation.navigate(
-              'IndividualDeckView',
-              { deck: item }
-              )
-            }
+            onPress={() => this.locateToDeck(item)}
           >
             <View>
               <Text style={styles.header}>{item}</Text>

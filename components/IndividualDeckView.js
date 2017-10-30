@@ -10,6 +10,8 @@ import { connect } from 'react-redux';
 import { getDeck } from '../actions';
 import { fetchDeck } from '../utils/api';
 import { AppLoading } from 'expo';
+import { StackNavigator } from 'react-navigation';
+import { NavigationActions } from 'react-navigation';
 
 class IndividualDeckView extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -27,6 +29,15 @@ class IndividualDeckView extends Component {
         deck: entries.data,
         ready: true,
       })));
+  };
+
+  addCard = () => {
+    const { deck } = this.props;
+    const navigateAction = NavigationActions.navigate({
+      routeName: 'NewQuestionView',
+      params: { deck },
+    });
+    this.props.navigation.dispatch(navigateAction);
   };
 
   render() {
@@ -50,7 +61,7 @@ class IndividualDeckView extends Component {
               ? styles.iosSubmitBtn
               : styles.AndroidSubmitBtn
             }
-            onPress={this.addCard}
+            onPress={() => this.addCard()}
           >
             <Text style={styles.submitBtnText}>Add Card</Text>
           </TouchableOpacity>

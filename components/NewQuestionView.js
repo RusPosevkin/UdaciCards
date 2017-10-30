@@ -12,44 +12,43 @@ import { addDeck } from '../actions';
 import { saveDeckTitle } from '../utils/api';
 import { NavigationActions } from 'react-navigation';
 
-class NewDeckView extends Component {
+class NewQuestionView extends Component {
   constructor(props) {
     super(props);
-    this.state = { title: '' };
+    this.state = { question: '', answer: '' };
   };
 
-  locateToDeck = () => {
-    const navigateAction = NavigationActions.navigate({
-      routeName: 'IndividualDeckNavigator',
-
-      action: NavigationActions.navigate({
-        routeName: 'IndividualDeckView',
-        params: { deck: this.state.title },
-      }),
-    });
-    this.props.navigation.dispatch(navigateAction);
+  locateToIndividualDeck = () => {
+    this.props.navigation.dispatch(NavigationActions.back({ key: 'NewQuestionView' }));
   };
+
 
   submit = () => {
-    const { title }  = this.state;
+    const { question, answer }  = this.state;
 
-    this.props.dispatch(addDeck({ title }));
+    this.props.dispatch(addCard({ question, answer, deck }));
 
-    this.setState(() => ({ title: '' }));
+    this.setState(() => ({ question: '', answer: '' }));
 
-    this.locateToDeck();
+    this.locateToIndividualDeck();
 
-    saveDeckTitle(title);
+    addCardToDeck({ question, answer, deck });
   };
 
   render() {
     return (
       <View style={styles.container}>
-        <Text>What is the title of your new deck?</Text>
+        <Text>Enter your question</Text>
         <TextInput
           style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
-          onChangeText={(title) => this.setState({ title })}
-          value={this.state.title}
+          onChangeText={(question) => this.setState({ question })}
+          value={this.state.question}
+        />
+        <Text>Enter the answer</Text>
+        <TextInput
+          style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+          onChangeText={(answer) => this.setState({ answer })}
+          value={this.state.answer}
         />
         <TouchableOpacity
           style={ Platform.OS === 'ios'
@@ -58,7 +57,7 @@ class NewDeckView extends Component {
           }
           onPress={this.submit}
         >
-          <Text style={styles.submitBtnText}>Create Deck</Text>
+          <Text style={styles.submitBtnText}>Submit</Text>
         </TouchableOpacity>
       </View>
     );
@@ -117,4 +116,4 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps,
-)(NewDeckView);
+)(NewQuestionView);

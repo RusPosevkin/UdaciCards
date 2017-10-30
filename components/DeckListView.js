@@ -53,9 +53,6 @@ class DeckListView extends Component {
     const propsStringify = JSON.stringify(this.props);
     return (
       <View style={styles.container}>
-        <Text>DeckListView</Text>
-        <Text>{stateStringify}</Text>
-        <Text>{propsStringify}</Text>
         {decks.map((item) => (
           <TouchableHighlight
             key={item}

@@ -40,6 +40,17 @@ class IndividualDeckView extends Component {
     this.props.navigation.dispatch(navigateAction);
   };
 
+  startQuiz = () => {
+    // const { deck } = this.props;
+    const questions = this.state.deck.questions;
+    const navigateAction = NavigationActions.navigate({
+      routeName: 'QuizView',
+      params: { questions, position: 0 },
+    });
+    this.props.navigation.dispatch(navigateAction);
+  };
+
+
   render() {
     const { ready } = this.state;
 
@@ -71,7 +82,7 @@ class IndividualDeckView extends Component {
               ? styles.iosSubmitBtn
               : styles.AndroidSubmitBtn
             }
-            onPress={this.startQuiz}
+            onPress={() =>this.startQuiz()}
           >
             <Text style={styles.submitBtnText}>Start Quiz</Text>
           </TouchableOpacity>

@@ -10,6 +10,7 @@ import { TabNavigator, StackNavigator } from 'react-navigation';
 import { Ionicons } from '@expo/vector-icons';
 import IndividualDeckView from './components/IndividualDeckView';
 import NewQuestionView from './components/NewQuestionView';
+import QuizView from './components/QuizView';
 
 const store = configureStore();
 const platformPrefix = Platform.OS === 'ios' ? 'ios' : 'md';
@@ -39,18 +40,25 @@ const Tabs = TabNavigator({
   },
 });
 
+const navigationOptions = {
+  headerTintColor: 'white',
+  headerStyle: {
+    backgroundColor: 'purple',
+  },
+};
+
 const IndividualDeckNavigator = StackNavigator({
   IndividualDeckView: {
     screen: IndividualDeckView,
+    navigationOptions,
   },
   NewQuestionView: {
     screen: NewQuestionView,
-    navigationOptions: {
-      headerTintColor: 'white',
-      headerStyle: {
-        backgroundColor: 'purple',
-      },
-    },
+    navigationOptions,
+  },
+  QuizView: {
+    screen: QuizView,
+    navigationOptions,
   },
 }, {
   headerMode: 'none',
@@ -59,23 +67,22 @@ const IndividualDeckNavigator = StackNavigator({
 const MainNavigator = StackNavigator({
   Home: {
     screen: Tabs,
+    navigationOptions,
   },
   IndividualDeckNavigator: {
     screen: IndividualDeckNavigator,
-    navigationOptions: {
-      headerTintColor: 'white',
-      headerStyle: {
-        backgroundColor: 'purple',
-      },
-    },
+    navigationOptions,
   },
+}, {
+  headerTintColor: 'white',
+  headerTitleStyle: { color: 'white' },
 });
 
 export default class App extends React.Component {
   render() {
     return (
       <Provider store={store}>
-        <View style={[styles.debug, { flex: 1 }]}>
+        <View style={[{ flex: 1 }]}>
           <MainNavigator />
         </View>
       </Provider>

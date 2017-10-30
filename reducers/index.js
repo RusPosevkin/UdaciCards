@@ -5,7 +5,6 @@ function decks(state = {}, action) {
 
   switch (action.type) {
     case GET_DECKS: {
-      console.log(GET_DECKS, data)
       return {
         ...state,
         ...data,

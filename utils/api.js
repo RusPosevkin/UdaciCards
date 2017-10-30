@@ -6,6 +6,17 @@ export function fetchDecks() {
   return AsyncStorage.getItem(DECKS_STORAGE_KEY);
 };
 
-export function saveDeckTitle(data) {
-  return AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify(data));
+export function fetchDeck(id) {
+  return AsyncStorage.getItem(DECKS_STORAGE_KEY).then((data) => {
+    return JSON.parse(data)[id];
+  });
+};
+
+export function saveDeckTitle(title) {
+  return AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify({
+    [title]: {
+      title,
+      questions: [],
+    },
+  }));
 };

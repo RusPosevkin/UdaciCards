@@ -31,7 +31,7 @@ class NewDeckView extends Component {
 
     this.locateToMain();
 
-    saveDeckTitle({ title });
+    saveDeckTitle(title);
   };
 
   render() {

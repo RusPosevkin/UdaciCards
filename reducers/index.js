@@ -1,12 +1,17 @@
-import { GET_DECKS, ADD_DECK } from '../actions';
+import { GET_DECKS, ADD_DECK, GET_DECK } from '../actions';
 
 function decks(state = {}, action) {
-  const { data } = action;
+  const { data, key } = action;
 
   switch (action.type) {
     case GET_DECKS:
       return {
         ...state,
+      };
+    case GET_DECK:
+      return {
+        ...state,
+        [key]: data,
       };
     case ADD_DECK:
       const { title } = data;

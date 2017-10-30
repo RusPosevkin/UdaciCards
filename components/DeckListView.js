@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
   deck: {
     marginBottom: 5,
     borderWidth: 2,
-    borderColor: 'grey',
+    borderColor: 'purple',
     padding: 20,
   },
   header: {

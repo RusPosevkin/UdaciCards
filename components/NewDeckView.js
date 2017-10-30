@@ -19,7 +19,11 @@ class NewDeckView extends Component {
   };
 
   locateToMain = () => {
-    this.props.navigation.dispatch(NavigationActions.back({ key: 'NewDeckView' }));
+    const navigateAction = NavigationActions.navigate({
+      routeName: 'IndividualDeckView',
+      params: { deck: this.state.title },
+    });
+    this.props.navigation.dispatch(navigateAction);
   };
 
   submit = () => {

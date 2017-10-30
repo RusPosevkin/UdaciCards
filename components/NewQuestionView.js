@@ -11,6 +11,8 @@ import { connect } from 'react-redux';
 import { addDeck } from '../actions';
 import { saveDeckTitle } from '../utils/api';
 import { NavigationActions } from 'react-navigation';
+import { addCard } from '../actions';
+import { addCardToDeck } from '../utils/api';
 
 class NewQuestionView extends Component {
   constructor(props) {
@@ -19,12 +21,15 @@ class NewQuestionView extends Component {
   };
 
   locateToIndividualDeck = () => {
-    this.props.navigation.dispatch(NavigationActions.back({ key: 'NewQuestionView' }));
+    const navigateAction = NavigationActions.back({
+      key: null,
+    });
+    this.props.navigation.dispatch(navigateAction);
   };
-
 
   submit = () => {
     const { question, answer }  = this.state;
+    const { deck } = this.props;
 
     this.props.dispatch(addCard({ question, answer, deck }));
 
@@ -110,8 +115,9 @@ const styles = StyleSheet.create({
   },
 });
 
-function mapStateToProps(state) {
-  return state;
+function mapStateToProps(state, options) {
+  const { deck } = options.navigation.state.params;
+  return { deck, state };
 };
 
 export default connect(

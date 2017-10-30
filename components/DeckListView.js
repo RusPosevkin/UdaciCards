@@ -14,9 +14,8 @@ class DeckListView extends Component {
   componentDidMount() {
     const { dispatch } = this.props;
     fetchDecks()
-      .then((entries) => dispatch(getDecks(entries)))
-      .then(({ entries }) => {
-        console.log('fetchDecks', entries);
+      .then((entries) => {
+        return dispatch(getDecks(entries));
       })
       .then(() => this.setState(() => ({ ready: true })));
   };
@@ -42,7 +41,7 @@ class DeckListView extends Component {
 
     const { decks, state } = this.props;
 
-    if (decks.length === 0) {
+    if (decks && decks.length === 0) {
       return (
         <View style={styles.center}>
           <Text>There is no any deck</Text>

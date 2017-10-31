@@ -12,6 +12,10 @@ import { fetchDeck } from '../utils/api';
 import { AppLoading } from 'expo';
 import { StackNavigator } from 'react-navigation';
 import { NavigationActions } from 'react-navigation';
+import {
+  clearLocalNotification,
+  setLocalNotification,
+} from '../utils/notifications';
 
 class IndividualDeckView extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -41,15 +45,14 @@ class IndividualDeckView extends Component {
   };
 
   startQuiz = () => {
-    // const { deck } = this.props;
+    clearLocalNotification().then(setLocalNotification);
     const questions = this.state.deck.questions;
     const navigateAction = NavigationActions.navigate({
       routeName: 'QuizView',
-      params: { questions, position: 0 },
+      params: { questions },
     });
     this.props.navigation.dispatch(navigateAction);
   };
-
 
   render() {
     const { ready } = this.state;

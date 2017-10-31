@@ -11,6 +11,7 @@ import { Ionicons } from '@expo/vector-icons';
 import IndividualDeckView from './components/IndividualDeckView';
 import NewQuestionView from './components/NewQuestionView';
 import QuizView from './components/QuizView';
+import { setLocalNotification } from './utils/notifications';
 
 const store = configureStore();
 const platformPrefix = Platform.OS === 'ios' ? 'ios' : 'md';
@@ -79,6 +80,10 @@ const MainNavigator = StackNavigator({
 });
 
 export default class App extends React.Component {
+  componentDidMount() {
+    setLocalNotification();
+  };
+
   render() {
     return (
       <Provider store={store}>

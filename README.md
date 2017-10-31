@@ -31,3 +31,6 @@ $> a
 [React Native - Getting Started](https://facebook.github.io/react-native/docs/getting-started.html)
 
 Also you can use [expo](https://expo.io) for launching app in emulator or real device.
+
+## Supported OS
+Application was tested using iOS and android emulators.

@@ -34,3 +34,7 @@ Also you can use [expo](https://expo.io) for launching app in emulator or real d
 
 ## Supported OS
 Application was tested using iOS and android emulators.
+
+## License
+
+[MIT](./LICENSE)
